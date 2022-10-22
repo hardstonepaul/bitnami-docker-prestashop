@@ -26,8 +26,21 @@ services:
       - 'prestashop_data:/bitnami/prestashop'
     depends_on:
       - mariadb
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mariadb
+      - UPLOAD_LIMIT=128M
+    depends_on:
+      - mariadb
+    volumes:
+      - phpmyadmin_data:/bitnami/phpmyadmin
 volumes:
   mariadb_data:
     driver: local
   prestashop_data:
+    driver: local
+  phpmyadmin_data:
     driver: local
